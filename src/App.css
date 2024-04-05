@@ -47,3 +47,41 @@
 .createInfo {
   margin: auto;
 }
+
+.mainWrapper {
+  /* display: flex; */
+  display: grid;
+  grid-template-columns: 220px 1fr;
+  height: 100vh;
+}
+
+.leftSide {
+  background: rgb(70, 69, 69);
+  padding: 15px;
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+  /* max-width: 190px; */
+}
+
+.leftSideInner {
+  flex: 1;
+}
+
+.clientsList {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 15px;
+}
+
+.client {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+.leaveBtn {
+  margin-top: 10px;
+  background-color: brown;
+}
