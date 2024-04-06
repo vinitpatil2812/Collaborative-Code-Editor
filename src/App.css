@@ -52,7 +52,7 @@
   /* display: flex; */
   display: grid;
   grid-template-columns: 220px 1fr;
-  height: 100vh;
+  height: 97vh;
 }
 
 .leftSide {
@@ -84,4 +84,23 @@
 .leaveBtn {
   margin-top: 10px;
   background-color: brown;
+}
+
+.editor {
+  display: flex;
+  flex-direction: column;
+}
+
+/* .editorInner {
+  min-height: 65vh;
+} */
+
+.output {
+  padding: 5px;
+  min-height: 20vh;
+}
+
+.submitBtn {
+  margin-left: auto;
+  background-color: rgb(10, 107, 6);
 }

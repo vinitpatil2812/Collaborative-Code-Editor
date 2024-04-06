@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import Client from "../components/Client";
-import Editor from "../components/Editor";
+import BoxEditor from "../components/BoxEditor";
+import Output from "../components/Output";
 
 const EditorPage = () => {
     const [clients, setClients] = useState([
@@ -31,7 +32,13 @@ const EditorPage = () => {
                 <button className="leaveBtn">Leave</button>
             </div>
             <div className="editor">
-                <Editor />
+                <div className="editorInner">
+                    <BoxEditor />
+                </div>
+                <div className="output">
+                    <Output />
+                </div>
+                <button className="submitBtn">Submit</button>
             </div>
         </div>
     )
