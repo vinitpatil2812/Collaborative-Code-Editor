@@ -2,24 +2,25 @@ import React, { useEffect, useRef, useState } from "react";
 import Client from "../components/Client";
 import BoxEditor from "../components/BoxEditor";
 import Output from "../components/Output";
-import Events from "../Events";
-import {useLocation} from "react-router-dom";
+import {useLocation, useParams} from "react-router-dom";
 import {io} from "socket.io-client"
 
 const EditorPage = () => {
     const socketRef = useRef(null);
     const location = useLocation();
+    const { roomId } = useParams();
 
     useEffect(() => {
-        // (async () => {
-        //     socketRef.current = await initSocket();
-        //     // socketRef.current.emit(Events.JOIN, {
-        //     //     roomId,
-        //     //     username: location.state?.username,
-        //     // });
-        // })();
+        // const socket = io(import.meta.env.VITE_BACKEND_URL);
 
-        const socket = io("http://localhost:5000");
+        (async () => {
+            socketRef.current = io(import.meta.env.VITE_BACKEND_URL);
+            socketRef.current.emit("JOIN", {
+                roomId,
+                username: location.state?.username,
+            });
+        })();
+
     }, []);
 
 
