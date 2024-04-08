@@ -17,8 +17,9 @@ const EditorPage = () => {
             socketRef.current = io(import.meta.env.VITE_BACKEND_URL);
             socketRef.current.emit("JOIN", {
                 roomId,
-                username: location.state?.username,
+                username: location.state.username,
             });
+            console.log(location.state.username)
         })();
 
     }, []);

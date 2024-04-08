@@ -21,11 +21,11 @@ const Home = () => {
             return;
         }
 
-        navigate(`/editor/${roomId}`, {
-            state: {
-                userName,
-            },
-        });
+        // navigate(`/editor/${roomId}`, {
+        //     state: {
+        //         userName,
+        //     },
+        // });
     }
 
 
