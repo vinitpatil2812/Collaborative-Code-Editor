@@ -2,11 +2,15 @@ import React, { useState } from "react";
 import { v4 as uid } from "uuid";
 import toast from "react-hot-toast"
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { setUsername } from "../features/UsernameSlice";
+import { setCode } from "../features/CodeSlice";
 
 const Home = () => {
+    const dispatch = useDispatch();
     const navigate = useNavigate();
-    const [roomId, setRoomId] = useState();
-    const [userName, setUserName] = useState();
+    const [roomId, setRoomId] = useState("");
+    const [user, setUser] = useState("");
 
     const createNewRoom = (e) => {
         e.preventDefault();
@@ -16,16 +20,18 @@ const Home = () => {
     }
 
     const joinRoom = () => {
-        if(!roomId || !userName) {
+        if(!roomId || !user) {
             toast.error("RoomId & Username Not Found");
             return;
         }
+        
+        // const code = "working";
+        // dispatch(setCode(code));
 
-        // navigate(`/editor/${roomId}`, {
-        //     state: {
-        //         userName,
-        //     },
-        // });
+        // console.log("home", user);
+        dispatch(setUsername(user));
+
+        navigate(`/editor/${roomId}`);
     }
 
 
@@ -39,8 +45,8 @@ const Home = () => {
                         onChange={(e) => setRoomId(e.target.value)}
                         value={roomId} />
                     <input type="text" className="inputBox" placeholder="Enter Username"
-                        onChange={(e) => setUserName(e.target.value)}
-                        value={userName} />
+                        onChange={(e) => setUser(e.target.value)}
+                        value={user} />
                     <button className="btn joinBtn" onClick={joinRoom}>Join</button>
                     <span className="createInfo">
                         Click here to create &nbsp;

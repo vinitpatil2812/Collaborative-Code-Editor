@@ -9,7 +9,7 @@ export const CodeSlice = createSlice({
     initialState,
     reducers: {
         setCode: (state, action) => {
-            state.username = action.payload
+            state.code = action.payload
         }, 
     },
 })

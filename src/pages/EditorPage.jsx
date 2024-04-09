@@ -4,11 +4,20 @@ import BoxEditor from "../components/BoxEditor";
 import Output from "../components/Output";
 import {useLocation, useParams} from "react-router-dom";
 import {io} from "socket.io-client"
+import { useSelector } from 'react-redux';
+// import {} from "../features/UsenameSlice";
 
 const EditorPage = () => {
     const socketRef = useRef(null);
     const location = useLocation();
     const { roomId } = useParams();
+    // console.log("roomId", roomId);
+
+    // const code = useSelector(state => state.code);
+    // console.log(code);
+
+    const username = useSelector(state => state.Username.username);
+    // console.log(username);
 
     useEffect(() => {
         // const socket = io(import.meta.env.VITE_BACKEND_URL);
@@ -17,12 +26,24 @@ const EditorPage = () => {
             socketRef.current = io(import.meta.env.VITE_BACKEND_URL);
             socketRef.current.emit("JOIN", {
                 roomId,
-                username: location.state.username,
+                // username: "custom" 
+                username,
             });
-            console.log(location.state.username)
+            
+            // var ex = "ex";
+            // ex = useSelector(state => state.username);
+            // console.log(ex);
+            socketRef.current.on("JOINED", ({socketId, username}) => {
+                console.log(socketId);
+                console.log(username);
+            })
         })();
 
     }, []);
+
+    // var ex = "ex";
+    // ex = useSelector(state => state.username);
+    // console.log(ex);
 
 
     const [clients, setClients] = useState([
