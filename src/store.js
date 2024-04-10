@@ -7,11 +7,9 @@ import CodeReducer from "./features/CodeSlice";
 const rootReducer = combineReducers({
     Clients: ClientReducer,
     Username: UsernameReducer,
-    // UsernameReducer : UsernameReducer,
     Code: CodeReducer,  
 })
 
 export const store = configureStore({
     reducer: rootReducer,
-    // reducer: UsernameReducer,
 });

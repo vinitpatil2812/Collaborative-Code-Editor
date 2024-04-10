@@ -5,11 +5,14 @@ import Output from "../components/Output";
 import {useLocation, useParams} from "react-router-dom";
 import {io} from "socket.io-client"
 import { useSelector } from 'react-redux';
-// import {} from "../features/UsenameSlice";
+import { useDispatch } from "react-redux";
+import toast from "react-hot-toast"
 
 const EditorPage = () => {
+    const [clients, setClients] = useState([]);
     const socketRef = useRef(null);
     const location = useLocation();
+    const dispatch = useDispatch();
     const { roomId } = useParams();
     // console.log("roomId", roomId);
 
@@ -18,6 +21,9 @@ const EditorPage = () => {
 
     const username = useSelector(state => state.Username.username);
     // console.log(username);
+    // const id = uid();
+    // setClients((clients) => [...clients, {socketId : "current", username}]);
+
 
     useEffect(() => {
         // const socket = io(import.meta.env.VITE_BACKEND_URL);
@@ -28,16 +34,41 @@ const EditorPage = () => {
                 roomId,
                 // username: "custom" 
                 username,
+                
+                
             });
             
             // var ex = "ex";
             // ex = useSelector(state => state.username);
             // console.log(ex);
             socketRef.current.on("JOINED", ({socketId, username}) => {
-                console.log(socketId);
-                console.log(username);
+                toast.success(`${username} joined the room.`);
+
+                // dispatch(addClient({socketId, username}));
+                // const clientList = useSelector(state => state.Clients.clients);
+                setClients((clients) => [...clients, {socketId, username}]);
+            })  
+
+            socketRef.current.on("DISCONNECTED", ({socketId}) => {
+                console.log("bug");
+                setClients((clients) => {
+                    return clients.filter(
+                        (client) => {
+                            if(client.socketId !== socketId) {
+                                toast.success(`${client.username} left the room.`);
+                                return true;
+                            }
+                        }
+                    )
+                })
             })
         })();
+
+        return () => {
+            socketRef.current.off("JOINED");
+            socketRef.current.off("DISCONNECTED");
+            socketRef.current.disconnect({roomId, username});
+        }
 
     }, []);
 
@@ -46,15 +77,7 @@ const EditorPage = () => {
     // console.log(ex);
 
 
-    const [clients, setClients] = useState([
-        {socketId:1, username: "Hello"},
-        {socketId:2, username: "Hii"},
-        {socketId:3, username: "Hii"},
-        {socketId:4, username: "Hii"},
-        {socketId:5, username: "Hii"},
-        {socketId:6, username: "Hii"},
-        {socketId:7, username: "Hii"},
-    ]);
+    // const [clients, setClients] = useState([]);
 
 
     return (

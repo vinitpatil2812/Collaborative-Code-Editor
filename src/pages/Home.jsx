@@ -4,7 +4,6 @@ import toast from "react-hot-toast"
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { setUsername } from "../features/UsernameSlice";
-import { setCode } from "../features/CodeSlice";
 
 const Home = () => {
     const dispatch = useDispatch();
@@ -25,10 +24,6 @@ const Home = () => {
             return;
         }
         
-        // const code = "working";
-        // dispatch(setCode(code));
-
-        // console.log("home", user);
         dispatch(setUsername(user));
 
         navigate(`/editor/${roomId}`);
